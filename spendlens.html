@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SpendLens Malaysia</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F7F9F8;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px}
+.wrap{border:1px solid #E2E8E5;border-radius:16px;overflow:hidden;background:#fff;width:100%;max-width:760px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #E2E8E5;background:#fff}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{width:32px;height:32px;border-radius:8px;background:#0F6E56;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
+.brand-name{font-size:14px;font-weight:500;color:#1C2B27}
+.brand-sub{font-size:11px;color:#6B7C76}
+.pills{display:flex;gap:6px}
+.pill{font-size:11px;padding:4px 10px;border-radius:99px;border:1px solid #E2E8E5;color:#6B7C76;background:#F7F9F8}
+.pill-green{background:#E1F5EE;color:#085041;border-color:#9FE1CB}
+.content{display:grid;grid-template-columns:1fr 252px}
+.left{border-right:1px solid #E2E8E5;padding:16px}
+.right{padding:16px;display:flex;flex-direction:column;gap:14px;background:#fff}
+.sec-label{font-size:10px;font-weight:500;color:#6B7C76;letter-spacing:.9px;text-transform:uppercase;margin-bottom:10px}
+.map-wrap{background:#F7F9F8;border-radius:12px;border:1px solid #E2E8E5;padding:12px;margin-bottom:14px}
+.leg-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.leg-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;border:1px solid #E2E8E5;cursor:pointer;background:#fff;transition:border-color .15s,background .15s}
+.leg-item:hover,.leg-item.sel{border-color:#9BA8A2;background:#F7F9F8}
+.leg-swatch{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.leg-name{font-size:11px;font-weight:500;color:#1C2B27}
+.leg-n{font-size:10px;color:#6B7C76}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi{background:#F7F9F8;border-radius:8px;padding:10px 12px}
+.kpi-val{font-size:20px;font-weight:500;color:#1C2B27}
+.kpi-lbl{font-size:11px;color:#6B7C76;margin-top:1px}
+.kpi-d{font-size:11px;margin-top:3px}
+.up{color:#085041}.dn{color:#712B13}
+.seg-card{border-radius:12px;border:1px solid #E2E8E5;overflow:hidden}
+.seg-header{padding:10px 12px;display:flex;align-items:center;gap:8px}
+.seg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.seg-title{font-size:12px;font-weight:500}
+.seg-badge{font-size:10px;padding:2px 8px;border-radius:99px;margin-left:auto}
+.seg-body{padding:10px 12px;border-top:1px solid #E2E8E5;background:#F7F9F8}
+.rec-label{font-size:10px;font-weight:500;color:#6B7C76;margin-bottom:4px}
+.rec-text{font-size:12px;color:#1C2B27;line-height:1.55}
+.dist-card{border:1px solid #E2E8E5;border-radius:12px;overflow:hidden}
+.dist-header{padding:10px 12px;border-bottom:1px solid #E2E8E5;background:#fff}
+.dist-name{font-size:13px;font-weight:500;color:#1C2B27}
+.dist-state{font-size:11px;color:#6B7C76}
+.dist-body{padding:8px 12px;background:#fff}
+.drow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #F0F4F2}
+.drow:last-child{border:none}
+.dk{font-size:11px;color:#6B7C76;display:flex;align-items:center;gap:5px}
+.dv{font-size:12px;font-weight:500;color:#1C2B27}
+.ratio-bar{height:4px;border-radius:2px;background:#E2E8E5;margin-top:8px;overflow:hidden}
+.ratio-fill{height:100%;border-radius:2px;transition:width .4s,background .4s}
+.ratio-labels{display:flex;justify-content:space-between;font-size:10px;color:#6B7C76;margin-top:3px}
+.act-btn{width:100%;font-size:12px;padding:9px 14px;border-radius:8px;border:1px solid #C8D5D0;background:#fff;color:#1C2B27;cursor:pointer;transition:background .15s}
+.act-btn:hover{background:#F7F9F8}
+.pressure-row{margin-top:8px;padding:10px 12px;background:#F7F9F8;border-radius:8px}
+.pressure-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.pressure-lbl{font-size:11px;color:#6B7C76}
+.pressure-val{font-size:12px;font-weight:500;color:#1C2B27}
+@media(max-width:600px){
+  .content{grid-template-columns:1fr}
+  .left{border-right:none;border-bottom:1px solid #E2E8E5}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-icon"><i class="ti ti-chart-dots"></i></div>
+      <div>
+        <div class="brand-name">SpendLens Malaysia</div>
+        <div class="brand-sub">Fintech segmentation · HIES 2022 · DOSM</div>
+      </div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-green"><i class="ti ti-circle-filled" style="font-size:7px;vertical-align:1px"></i> Live</span>
+      <span class="pill">160 districts</span>
+      <span class="pill">4 segments</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="sec-label">Spending behaviour map</div>
+      <div class="map-wrap">
+        <svg viewBox="0 0 540 270" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+          <text x="14" y="14" font-size="9" fill="#9BA8A2" font-family="inherit">Peninsular Malaysia</text>
+          <text x="330" y="14" font-size="9" fill="#9BA8A2" font-family="inherit">East Malaysia (Sabah · Sarawak)</text>
+          <ellipse cx="105" cy="135" rx="78" ry="108" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="0.5" opacity="0.45"/>
+          <rect x="48" y="50" width="48" height="34" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="0.8" class="dr" data-c="0" data-name="Perlis / N. Kedah" data-state="Kedah" data-inc="5200" data-exp="3700" data-r="0.71" data-pov="5.2"/>
+          <rect x="100" y="44" width="58" height="30" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="0.8" class="dr" data-c="0" data-name="Terengganu belt" data-state="Terengganu" data-inc="5500" data-exp="3900" data-r="0.71" data-pov="9.5"/>
+          <rect x="48" y="88" width="58" height="42" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="0.8" class="dr" data-c="0" data-name="Kedah interior" data-state="Kedah" data-inc="5000" data-exp="3600" data-r="0.72" data-pov="7.1"/>
+          <rect x="48" y="135" width="52" height="36" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="0.8" class="dr" data-c="0" data-name="Kelantan interior" data-state="Kelantan" data-inc="4200" data-exp="3100" data-r="0.74" data-pov="14.2"/>
+          <rect x="104" y="78" width="55" height="50" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="0.8" class="dr" data-c="0" data-name="Pahang interior" data-state="Pahang" data-inc="4800" data-exp="3500" data-r="0.73" data-pov="8.4"/>
+          <rect x="50" y="175" width="24" height="22" rx="4" fill="#F0997B" stroke="#D85A30" stroke-width="0.8" class="dr" data-c="1" data-name="Baling" data-state="Kedah" data-inc="4263" data-exp="2729" data-r="0.64" data-pov="14.4"/>
+          <rect x="148" y="82" width="38" height="34" rx="4" fill="#F0997B" stroke="#D85A30" stroke-width="0.8" class="dr" data-c="1" data-name="Hulu Perak" data-state="Perak" data-inc="5200" data-exp="3100" data-r="0.60" data-pov="14.8"/>
+          <rect x="78" y="186" width="44" height="30" rx="4" fill="#378ADD" stroke="#185FA5" stroke-width="0.8" class="dr" data-c="3" data-name="Johor Bahru" data-state="Johor" data-inc="9869" data-exp="6139" data-r="0.62" data-pov="3.7"/>
+          <rect x="126" y="178" width="46" height="36" rx="4" fill="#378ADD" stroke="#185FA5" stroke-width="0.8" class="dr" data-c="3" data-name="Melaka / Seremban" data-state="Melaka / N9" data-inc="8200" data-exp="5200" data-r="0.63" data-pov="3.4"/>
+          <rect x="126" y="128" width="50" height="46" rx="4" fill="#378ADD" stroke="#185FA5" stroke-width="0.8" class="dr" data-c="3" data-name="Pulau Pinang" data-state="Pulau Pinang" data-inc="8200" data-exp="5300" data-r="0.65" data-pov="2.6"/>
+          <rect x="158" y="118" width="22" height="22" rx="4" fill="#7F77DD" stroke="#534AB7" stroke-width="0.8" class="dr" data-c="2" data-name="Petaling / KL" data-state="Selangor / KL" data-inc="13200" data-exp="7500" data-r="0.57" data-pov="1.5"/>
+          <rect x="156" y="143" width="26" height="22" rx="4" fill="#7F77DD" stroke="#534AB7" stroke-width="0.8" class="dr" data-c="2" data-name="Sepang / Gombak" data-state="Selangor" data-inc="13500" data-exp="7100" data-r="0.53" data-pov="1.3"/>
+          <text x="195" y="175" font-size="8" fill="#C4CEC9" font-family="inherit">Strait of Malacca</text>
+          <g transform="translate(286,26)">
+            <ellipse cx="110" cy="112" rx="108" ry="92" fill="#FAECE7" stroke="#F5C4B3" stroke-width="0.5" opacity="0.4"/>
+            <rect x="8" y="18" width="62" height="52" rx="4" fill="#F0997B" stroke="#D85A30" stroke-width="0.8" class="dr" data-c="1" data-name="Pitas / Kota Marudu" data-state="Sabah" data-inc="3700" data-exp="2500" data-r="0.68" data-pov="51.3"/>
+            <rect x="74" y="12" width="58" height="56" rx="4" fill="#F0997B" stroke="#D85A30" stroke-width="0.8" class="dr" data-c="1" data-name="Tongod / Beluran" data-state="Sabah" data-inc="4300" data-exp="2700" data-r="0.63" data-pov="44.3"/>
+            <rect x="136" y="22" width="72" height="46" rx="4" fill="#F0997B" stroke="#D85A30" stroke-width="0.8" class="dr" data-c="1" data-name="Lahad Datu / Kinabatangan" data-state="Sabah" data-inc="5700" data-exp="3000" data-r="0.53" data-pov="26.2"/>
+            <rect x="8" y="74" width="58" height="56" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="0.8" class="dr" data-c="0" data-name="Betong / Sri Aman" data-state="Sarawak" data-inc="4600" data-exp="3200" data-r="0.70" data-pov="9.4"/>
+            <rect x="70" y="72" width="64" height="58" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="0.8" class="dr" data-c="0" data-name="Kapit / Song" data-state="Sarawak" data-inc="3800" data-exp="3100" data-r="0.82" data-pov="18.2"/>
+            <rect x="138" y="72" width="62" height="58" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="0.8" class="dr" data-c="0" data-name="Lawas / Marudi" data-state="Sarawak" data-inc="4800" data-exp="3000" data-r="0.63" data-pov="15.5"/>
+            <rect x="46" y="136" width="64" height="40" rx="4" fill="#378ADD" stroke="#185FA5" stroke-width="0.8" class="dr" data-c="3" data-name="Kuching / Samarahan" data-state="Sarawak" data-inc="7350" data-exp="4600" data-r="0.63" data-pov="8.5"/>
+            <rect x="114" y="136" width="56" height="40" rx="4" fill="#378ADD" stroke="#185FA5" stroke-width="0.8" class="dr" data-c="3" data-name="Bintulu / Miri" data-state="Sarawak" data-inc="8800" data-exp="5000" data-r="0.57" data-pov="5.0"/>
+            <rect x="36" y="182" width="34" height="22" rx="4" fill="#7F77DD" stroke="#534AB7" stroke-width="0.8" class="dr" data-c="2" data-name="Kota Kinabalu" data-state="Sabah" data-inc="8388" data-exp="4428" data-r="0.53" data-pov="10.3"/>
+          </g>
+          <text x="10" y="260" font-size="8" fill="#C4CEC9" font-family="inherit">DOSM HIES 2022 · K-Means clustering k=4 · Click any region to explore</text>
+        </svg>
+      </div>
+
+      <div class="sec-label">Segments</div>
+      <div class="leg-grid">
+        <div class="leg-item sel" data-c="2" onclick="sel(2)">
+          <div class="leg-swatch" style="background:#7F77DD"></div>
+          <div>
+            <div class="leg-name">Urban affluent</div>
+            <div class="leg-n">8 districts · avg RM 12.7k</div>
+          </div>
+        </div>
+        <div class="leg-item" data-c="3" onclick="sel(3)">
+          <div class="leg-swatch" style="background:#378ADD"></div>
+          <div>
+            <div class="leg-name">Suburban mid-tier</div>
+            <div class="leg-n">40 districts · avg RM 7.6k</div>
+          </div>
+        </div>
+        <div class="leg-item" data-c="0" onclick="sel(0)">
+          <div class="leg-swatch" style="background:#5DCAA5"></div>
+          <div>
+            <div class="leg-name">Rural pressured</div>
+            <div class="leg-n">61 districts · avg RM 4.9k</div>
+          </div>
+        </div>
+        <div class="leg-item" data-c="1" onclick="sel(1)">
+          <div class="leg-swatch" style="background:#F0997B"></div>
+          <div>
+            <div class="leg-name">High-poverty underserved</div>
+            <div class="leg-n">51 districts · avg RM 4.9k</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <div class="sec-label">Segment overview</div>
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="kpi-val" id="k-inc">RM 12,683</div>
+            <div class="kpi-lbl">Avg monthly income</div>
+            <div class="kpi-d up" id="k-inc-d">↑ Above national</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-val" id="k-pov">1.1%</div>
+            <div class="kpi-lbl">Poverty rate</div>
+            <div class="kpi-d up" id="k-pov-d">↓ Lowest cluster</div>
+          </div>
+        </div>
+        <div class="pressure-row">
+          <div class="pressure-top">
+            <span class="pressure-lbl">Spending pressure (exp/income)</span>
+            <span class="pressure-val" id="k-ratio">0.56</span>
+          </div>
+          <div class="ratio-bar"><div class="ratio-fill" id="ratio-fill" style="width:56%;background:#7F77DD"></div></div>
+          <div class="ratio-labels"><span>Low pressure</span><span>High pressure</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sec-label">Fintech product fit</div>
+        <div class="seg-card">
+          <div class="seg-header" id="seg-hdr" style="background:#EEEDFE">
+            <div class="seg-dot" id="seg-dot" style="background:#7F77DD"></div>
+            <span class="seg-title" id="seg-title" style="color:#3C3489">Urban affluent</span>
+            <span class="seg-badge" id="seg-badge" style="background:#CECBF6;color:#26215C">Cluster A</span>
+          </div>
+          <div class="seg-body">
+            <div class="rec-label">Recommended products</div>
+            <div class="rec-text" id="rec-text">Robo-advisory and unit trust platforms, premium credit cards, wealth management. High surplus income with appetite for investment instruments.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sec-label">District detail</div>
+        <div class="dist-card">
+          <div class="dist-header">
+            <div class="dist-name" id="d-name">Petaling / KL</div>
+            <div class="dist-state" id="d-state">Selangor / W.P. Kuala Lumpur</div>
+          </div>
+          <div class="dist-body">
+            <div class="drow"><span class="dk">Mean income</span><span class="dv" id="d-inc">RM 13,200</span></div>
+            <div class="drow"><span class="dk">Mean expenditure</span><span class="dv" id="d-exp">RM 7,500</span></div>
+            <div class="drow"><span class="dk">Spending ratio</span><span class="dv" id="d-ratio">0.57</span></div>
+            <div class="drow"><span class="dk">Poverty rate</span><span class="dv" id="d-pov">1.5%</span></div>
+            <div class="drow"><span class="dk">Segment</span><span class="dv" id="d-seg" style="color:#534AB7">Urban affluent</span></div>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://dosm.gov.my" target="_blank" style="text-decoration:none">
+        <button class="act-btn">View DOSM source data ↗</button>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+const CD={
+  2:{name:'Urban affluent',badge:'Cluster A',col:'#7F77DD',bg:'#EEEDFE',tbg:'#CECBF6',ttxt:'#26215C',htxt:'#3C3489',inc:'RM 12,683',pov:'1.1%',ratio:'0.56',incD:'↑ Above national',povD:'↓ Lowest cluster',incUp:true,povUp:true,rec:'Robo-advisory and unit trust platforms, premium credit cards, wealth management. High surplus income with appetite for investment instruments.',rw:56},
+  3:{name:'Suburban mid-tier',badge:'Cluster B',col:'#378ADD',bg:'#E6F1FB',tbg:'#B5D4F4',ttxt:'#042C53',htxt:'#0C447C',inc:'RM 7,632',pov:'4.9%',ratio:'0.63',incD:'↑ Above average',povD:'↑ Moderate risk',incUp:true,povUp:false,rec:'Micro-savings nudge tools, emergency fund products, BNPL risk flagging. High spending ratio despite decent income — the squeezed middle.',rw:63},
+  0:{name:'Rural pressured',badge:'Cluster C',col:'#5DCAA5',bg:'#E1F5EE',tbg:'#9FE1CB',ttxt:'#04342C',htxt:'#085041',inc:'RM 4,906',pov:'9.8%',ratio:'0.71',incD:'↓ Below average',povD:'↑ Elevated risk',incUp:false,povUp:false,rec:'Tabung-style goal savings, cooperative banking, eWallet onboarding. Spending discipline present but formal financial access is limited.',rw:71},
+  1:{name:'High-poverty underserved',badge:'Cluster D',col:'#F0997B',bg:'#FAECE7',tbg:'#F5C4B3',ttxt:'#4A1B0C',htxt:'#712B13',inc:'RM 4,896',pov:'22.2%',ratio:'0.62',incD:'↓ Below average',povD:'↑ Critical — highest',incUp:false,povUp:false,rec:'BSN/BPMB micro-loans, financial literacy, e-Kasih/Rahmah eWallet initiatives. Priority for BNM financial inclusion agenda.',rw:62}
+};
+const SEGS={2:'Urban affluent',3:'Suburban mid-tier',0:'Rural pressured',1:'High-poverty underserved'};
+const SCOL={2:'#534AB7',3:'#185FA5',0:'#085041',1:'#712B13'};
+
+function sel(c){
+  const d=CD[c];
+  document.getElementById('k-inc').textContent=d.inc;
+  document.getElementById('k-pov').textContent=d.pov;
+  document.getElementById('k-ratio').textContent=d.ratio;
+  const iEl=document.getElementById('k-inc-d');
+  iEl.className='kpi-d '+(d.incUp?'up':'dn');
+  iEl.textContent=d.incD;
+  const pEl=document.getElementById('k-pov-d');
+  pEl.className='kpi-d '+(d.povUp?'up':'dn');
+  pEl.textContent=d.povD;
+  const rf=document.getElementById('ratio-fill');
+  rf.style.width=d.rw+'%';rf.style.background=d.col;
+  document.getElementById('seg-hdr').style.background=d.bg;
+  document.getElementById('seg-dot').style.background=d.col;
+  const st=document.getElementById('seg-title');st.textContent=d.name;st.style.color=d.htxt;
+  const sb=document.getElementById('seg-badge');sb.textContent=d.badge;sb.style.background=d.tbg;sb.style.color=d.ttxt;
+  document.getElementById('rec-text').textContent=d.rec;
+  document.querySelectorAll('.leg-item').forEach(el=>el.classList.remove('sel'));
+  document.querySelector('.leg-item[data-c="'+c+'"]').classList.add('sel');
+}
+
+document.querySelectorAll('.dr').forEach(r=>{
+  r.style.cursor='pointer';
+  r.addEventListener('mouseenter',function(){this.style.opacity='.75'});
+  r.addEventListener('mouseleave',function(){this.style.opacity='1'});
+  r.addEventListener('click',function(){
+    const c=parseInt(this.dataset.c);
+    sel(c);
+    document.getElementById('d-name').textContent=this.dataset.name;
+    document.getElementById('d-state').textContent=this.dataset.state;
+    document.getElementById('d-inc').textContent='RM '+parseInt(this.dataset.inc).toLocaleString();
+    document.getElementById('d-exp').textContent='RM '+parseInt(this.dataset.exp).toLocaleString();
+    document.getElementById('d-ratio').textContent=parseFloat(this.dataset.r).toFixed(2);
+    document.getElementById('d-pov').textContent=parseFloat(this.dataset.pov).toFixed(1)+'%';
+    document.getElementById('d-seg').textContent=SEGS[c];
+    document.getElementById('d-seg').style.color=SCOL[c];
+  });
+});
+</script>
+</body>
+</html>
