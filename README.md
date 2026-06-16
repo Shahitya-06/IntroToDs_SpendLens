@@ -1,0 +1,6 @@
+# IntroToDs_SpendLens
+SpendLens Malaysia is an interactive dashboard that visualises Malaysian household spending behaviour across 160 districts using real DOSM HIES 2022 data.SpendLens Malaysia is an interactive dashboard that visualises Malaysian household spending behaviour across 160 districts using real DOSM HIES 2022 data.
+It segments districts into four clusters derived from K-Means clustering — urban affluent, suburban mid-tier, rural pressured, and high-poverty underserved — and maps them geographically across Peninsular and East Malaysia.
+The main use case is fintech and banking product targeting. Each cluster comes with a tailored financial product recommendation, so a bank analyst or BNM officer can look at the map, click a region, and immediately see what income level, spending pressure, and poverty rate characterises that area — and what product (robo-advisory, micro-savings, micro-loans, eWallet) fits that population.
+The right panel updates dynamically when you click any district or legend item, showing three things: segment-level KPIs with a spending pressure bar, a colour-coded fintech recommendation card, and a district-level breakdown of income, expenditure, ratio, and poverty rate.
+In short — it turns a raw CSV from DOSM into an actionable targeting tool for financial institutions.
